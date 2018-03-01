@@ -4,13 +4,12 @@ from Config import config
 
 states_list = []
 len_max_list = 2
-len_all_state = 100
-from_define_state = 70 #100フレーム後から判定を始める
+len_all_state = 50
+from_define_state = 35 #100フレーム後から判定を始める
 
 history_commands = []
 
 command_list = ["normal", "smile", "surprised", "right", "left"]
-add_modes_count = len(mode_list)
 
 def detect_face_state(predict):
     if len(states_list) > len_all_state:

@@ -26,14 +26,19 @@ def send(predict=0):
     elif osc_type == "r":
         print("predict + send predict osc", predict)
         msg = osc_message_builder.OscMessageBuilder(address="/predict")
-        msg.add_arg(predict)
+        if predict is None:
+            return
+        msg.add_arg(int(predict))
         msg = msg.build()
         client.send(msg)
     elif osc_type == "f":
         command = whatdo.detect_face_state(predict)
+
         if command is None or command == False:
             #print("command is not setted")
             return
+
+        print(predict, command)
 
         msg = {}
         builded_msg = {}

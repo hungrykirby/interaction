@@ -9,7 +9,6 @@ import os
 import glob
 
 from Config import DataSetup
-import face2data
 import osc
 
 def setup():

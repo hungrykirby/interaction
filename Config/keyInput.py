@@ -1,7 +1,6 @@
 import sys
 
 from Config import config
-import osc
 
 def key_input():
     while True:
