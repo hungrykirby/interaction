@@ -10,7 +10,7 @@ import glob
 
 from Config import DataSetup
 import face2data
-import oscSend
+import osc
 
 def setup():
     train_xyz, train_label, test_xyz, test_label = DataSetup.read_ceps()
@@ -46,5 +46,5 @@ def setup():
 
 def stream(svc, xyz):
     predict = svc.predict(xyz)
-    oscSend.send(predict[0])
+    osc.send(predict[0])
     return predict[0]
