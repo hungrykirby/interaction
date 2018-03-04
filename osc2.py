@@ -25,8 +25,8 @@ def setup_osc(scripts):
 
     return client
 
-def receive_osc(scripts, is_train):
-    cs = speakcommand.SpeakWCommand(scripts, is_train)
+def receive_osc(scripts, is_train, client):
+    cs = speakcommand.SpeakWCommand(scripts, is_train, client)
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--ip",
@@ -35,8 +35,8 @@ def receive_osc(scripts, is_train):
       type=int, default=12345, help="The port to listen on")
     args = parser.parse_args()
     _dispatcher = dispatcher.Dispatcher()
-    _dispatcher.map("/command", cs.speak_w_command)
-    #_dispatcher.map("/predict", print)
+    #_dispatcher.map("/raw", cs.speak_w_command)
+    _dispatcher.map("/predict", cs.speak_w_command)
 
     server = osc_server.ThreadingOSCUDPServer(
       (args.ip, args.port), _dispatcher)

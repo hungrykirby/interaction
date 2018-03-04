@@ -1,8 +1,9 @@
 import glob
 import speakcommand
 import random
+import osc2
 
-def read_files(is_train, username, num):
+def read_files(is_train):
     fetch_type = "r"
     folder_names = [
         "AdditiveWave",
@@ -17,6 +18,8 @@ def read_files(is_train, username, num):
     if is_train == "t":
         all_origin_processing_file_pathes = glob.glob('data/origin/TOKKO/*.pde')
         #all_origin_processing_file_pathes = glob.glob('data/change/Blink/*.ino')
+    else:
+        all_origin_processing_file_pathes = glob.glob('data/change/Blink/*.ino')
 
     if fetch_type == "r":
         n_ran = random.randint(0,len(all_origin_processing_file_pathes))
@@ -28,5 +31,5 @@ def read_files(is_train, username, num):
         lines = f.readlines()
         f.close()
 
-    speakcommand.setup_osc(lines)
+    osc2.setup_osc(lines)
     return lines

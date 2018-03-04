@@ -2,10 +2,11 @@ import argparse
 from pythonosc import osc_message_builder
 from pythonosc import udp_client
 
-import whatdo
 from Config import config
+import time
 
 osc_type = input("raw osc(r), face osc(f) or no osc(n)")
+command_list = ["normal", "smile", "surprised", "right", "left"]
 
 '''
 OSC
@@ -13,7 +14,7 @@ OSC
 parser = argparse.ArgumentParser()
 parser.add_argument("--ip", default="127.0.0.1",
     help="The ip of the OSC server")
-parser.add_argument("--port", type=int, default=12346,
+parser.add_argument("--port", type=int, default=12345,
     help="The port the OSC server is listening on")
 args = parser.parse_args()
 
@@ -32,17 +33,14 @@ def send(predict=0):
         msg = msg.build()
         client.send(msg)
     elif osc_type == "f":
-        command = whatdo.detect_face_state(predict)
-
-        if command is None or command == False:
-            #print("command is not setted")
+        print(predict, command_list[predict])
+        time.sleep(0)
+        if command_list[predict] is None:
             return
-
-        print(predict, command)
 
         msg = {}
         builded_msg = {}
-        addresses = {"/predict": predict, "/command": command}
+        addresses = {"/predict": predict, "/raw": command_list[predict]}
         #print(addresses)
         for a in addresses.items():
             msg[a[0]] = osc_message_builder.OscMessageBuilder(address=a[0])

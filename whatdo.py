@@ -12,10 +12,14 @@ history_commands = []
 command_list = ["normal", "smile", "surprised", "right", "left"]
 
 def detect_face_state(predict):
+    '''
+    whatdo:何をするかのコマンド
+    command:生のコマンド
+    '''
     if len(states_list) > len_all_state:
         del(states_list[0:from_define_state])
 
-    states_list.append(predict)
+    states_list.append(int(predict))
 
     if len(states_list) == len_all_state:
         count_dict = collections.Counter(states_list[len(states_list) - from_define_state:len(states_list) - 1])
@@ -36,4 +40,4 @@ def detect_face_state(predict):
         if len(history_commands) > 3:
             history_commands.pop(0)
 
-        return what_do
+        return what_do, command

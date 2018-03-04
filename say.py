@@ -34,35 +34,9 @@ is_keyboard = input("if you want to keyboard debug:input 'k'")
 
 def speak_scripts_w_osc():
     #speak_line = -1
-    lines = setup.read_files(is_train, username, num)
+    lines = setup.read_files(is_train)
     client = osc2.setup_osc(lines)
-    osc2.receive_osc(lines, is_train)
-
-def input_loop():
-    global input_word2
-    global cut_loop
-    count = 0
-    while True:
-        count += 1
-        if count > 100:
-            print("count over")
-            count = 0
-            break
-        try:
-            cut_loop = toi.win_input_with_timeout("loop:" + str(count), timeout=0.05) == "s"
-            print("loop break", cut_loop, input_word2)
-            if cut_loop:
-                cut_loop = False
-                break
-        except TimeoutError:
-            pass
-    #print("end loop")
-
-def multi():
-    print("start threading")
-    th = threading.Thread(name="01", target=input_loop, args=())
-    th.start()
-    return th
+    osc2.receive_osc(lines, is_train, client)
 
 def speak_scripts():
     global cut_loop
@@ -74,10 +48,7 @@ def speak_scripts():
     speak.Priority = 1 #0, 1, 2
     speak.SynchronousSpeakTimeout = 0
     speak_line = -1
-    lines = setup.read_files(is_train, username, num)
-    #speak.SpeakCompleteEvent = print_some()
-    #print(speak.SpeakCompleteEvent)
-    #print(speak.WaitForSingleObject(speak.SpeakCompleteEvent, -1))
+    lines = setup.read_files(is_train)
 
     while True:
         #print("input_word2", input_word2 == "")

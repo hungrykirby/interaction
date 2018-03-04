@@ -46,4 +46,5 @@ def setup():
 def stream(svc, xyz):
     predict = svc.predict(xyz)
     osc.send(predict[0])
+    #print("P", predict)
     return predict[0]

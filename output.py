@@ -41,6 +41,7 @@ def serial_loop():
                     de = s.decode('utf-8')
                     m = re.match("\-*[\w]+", str(de))
                 except Exception as e:
+                    print("例外を取得しました")
                     pass
                 if not m is None:
                     num = m.group()
